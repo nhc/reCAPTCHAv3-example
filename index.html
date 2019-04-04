@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>Google recapcha v3 demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfO0JsUAAAAAGXQIrOsKj9aC7kJWBvmrkxqCNdo"></script>
+    <script>
+        grecaptcha.ready(function () {
+            console.log("Captcha ready");
+
+            document.querySelector(".myForm").addEventListener("submit", function(e){
+                e.preventDefault();
+                grecaptcha.execute('6LfO0JsUAAAAAGXQIrOsKj9aC7kJWBvmrkxqCNdo', { action: 'contact' }).then(function (token) {
+                    console.log("Captcha executing ...");
+
+                    //var recaptchaResponse = document.getElementById('recaptchaResponse');
+                    //recaptchaResponse.value = token;
+
+                    fetch('backend.php?action=examples/contact&recaptcha_response='+token).then(function(response) {
+                        console.log("Fetch the backend ");
+                        response.json().then(function(data) {
+                            console.log("Captcha returning data");
+                            console.log(data);
+                        }).catch(function(){
+                            console.log("Captcha error, no response");
+                        });
+                    });
+                    
+                });
+                });
+            });
+
+    </script>
+  </head>
+  <body>
+ 
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+
+                    <form class="myForm">
+
+                        <h3 class="title">
+                            reCAPTCHA v3 example
+                        </h3>
+
+                        <p>Check the console for info</p>
+
+                        <br />
+                        
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="submit" class="button is-link">Get CAPTCHA Score</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </body>
+</html>
