@@ -1,4 +1,7 @@
-<?php // Check if form was submitted:
+<?php 
+header("Access-Control-Allow-Origin: *");
+
+// Check if form was submitted:
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recaptcha_response'])) {
 
     // Build POST request:
