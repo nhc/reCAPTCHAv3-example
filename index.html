@@ -20,10 +20,14 @@
                         response.json().then(function(data) {
                             console.log("Captcha returning data");
                             console.log(data);
-
-                            setTimeout(function(){ 
-                                form.submit();
-                            }, 3000);
+    
+                            if(data.success) {
+                                console.log("Success ! Submitting form in 3 seconds ...");
+                                setTimeout(function(){ 
+                                    form.submit();
+                                }, 3000);
+                            }
+                           
                         }).catch(function(){
                             console.log("Captcha error, no response");
                         });
