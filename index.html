@@ -6,8 +6,8 @@
     <script>
         grecaptcha.ready(function () {
             console.log("Captcha ready");
-
-            document.querySelector(".myForm").addEventListener("submit", function(e){
+            var form = document.querySelector(".myForm");
+            form.addEventListener("submit", function(e){
                 e.preventDefault();
                 grecaptcha.execute('6LfO0JsUAAAAAGXQIrOsKj9aC7kJWBvmrkxqCNdo', { action: 'contact' }).then(function (token) {
                     console.log("Captcha executing ...");
@@ -20,6 +20,10 @@
                         response.json().then(function(data) {
                             console.log("Captcha returning data");
                             console.log(data);
+
+                            setTimeout(function(){ 
+                                form.submit();
+                            }, 3000);
                         }).catch(function(){
                             console.log("Captcha error, no response");
                         });
@@ -48,7 +52,7 @@
                         <p>Check the console for info</p>
 
                         <br />
-                        
+
                         <div class="field is-grouped">
                             <div class="control">
                                 <button type="submit" class="button is-link">Get CAPTCHA Score</button>
